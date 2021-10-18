@@ -11,9 +11,8 @@ export function calculateDays(startDate, endDate, days, opened, opening) {
         let i = day.getDay();
         i = i - 1;
         if (i < 0) {
-            i = 7;
-        }
-        console.log(i+ " - "+days[i]+ " : "+opened[i]+" / "+opening[i]);
+            i = 6;
+        }        
         oped += opened[i] ? 1 : 0;
         oping += opening[i] ? 1 : 0;
 

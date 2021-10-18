@@ -1,12 +1,12 @@
 <script>
 
-import {calculateDays} from './time.js'
+	import { calculateDays } from './time.js'
 
 	export let startDate;
 
 	export let endDate;
 
-export let days = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
+	export let days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 
 	export let opening = [true, true, true, true, true, true, false];
 
@@ -16,10 +16,9 @@ export let days = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","diman
 
 	let openingSum = 0;
 
-	const Calculate = () => {
-		console.log(startDate);
-		console.log(endDate);		
-		const d = calculateDays(new Date(startDate),new Date(endDate),days, opened,opening);
+	const Calculate = () => {		
+		const d = calculateDays(new Date(startDate), new Date(endDate), days, opened, opening);
+		console.log(d);
 		openedSum = d.opened;
 		openingSum = d.opening;
 	}
@@ -34,7 +33,7 @@ export let days = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","diman
 
 	<div style="display:flex;flex-direction: row;">
 
-		
+
 		<div style="display:flex;flex-direction: column;">
 			<label for="datStart">Début</label>
 			<input id="datStart" type="date" bind:value={startDate} />
@@ -50,27 +49,39 @@ export let days = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","diman
 
 <div>
 	<h1>Jours</h1>
+
 	<div style="display:flex;flex-direction: row;">
-		{#each days as day,index}
-		<div style="display:flex;flex-direction: column;">
-			<p>{days[index]}</p>
-		
-			<input type="checkbox" bind:checked={opened[index]}/>
-		
-			<input type="checkbox" bind:checked={opening[index]}/>
-		</div>
-		{/each}
+
+		<table>
+			<tr>
+				<td></td>
+				{#each days as day,index}
+				<td align="center">{day}</td>
+				{/each}
+			</tr>
+			<tr>
+				<td>Jours ouvrés</td>
+				{#each days as day,index}
+				<td align="center">
+					<input type="checkbox" bind:checked={opened[index]} on:change={Calculate} />
+				</td>
+				{/each}
+			</tr>
+			<tr>
+				<td>Jours ouvrables</td>
+				{#each days as day,index}
+				<td align="center">
+					<input type="checkbox" bind:checked={opening[index]} on:change={Calculate} />
+				</td>
+				{/each}
+			</tr>
+
+		</table>
+
 	</div>
 </div>
 
-<!-- <div>
-	{#each days as day,index}
-	<div style="display:flex;flex-direction: column;">
-		<p>{days[index]} : {opened[index]} / {opening[index]}</p>
-	</div>
-	{/each}
 
-</div> -->
 
 <button on:click={Calculate}>Calculer</button>
 
@@ -81,7 +92,7 @@ export let days = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","diman
 	<h1>Résultats</h1>
 	<div style="display:flex; flex-direction: row;">
 		<div style="display: flex;flex-direction: column;">
-			<p>OUverts</p>
+			<p>Ouverts</p>
 			<p>{openedSum}</p>
 		</div>
 		<div style="display: flex;flex-direction: column;">
