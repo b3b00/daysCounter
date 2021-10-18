@@ -87,12 +87,6 @@
 </div>
 
 
-
-<button on:click={Calculate}>Calculer</button>
-
-
-
-
 <div>
 	<h1>Résultats</h1>
 
