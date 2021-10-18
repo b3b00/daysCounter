@@ -16,11 +16,13 @@
 
 	let openingSum = 0;
 
-	const Calculate = () => {		
-		const d = calculateDays(new Date(startDate), new Date(endDate), days, opened, opening);
-		console.log(d);
-		openedSum = d.opened;
-		openingSum = d.opening;
+	const Calculate = () => {
+		if (startDate && endDate) {
+			const d = calculateDays(new Date(startDate), new Date(endDate), days, opened, opening);
+			console.log(d);
+			openedSum = d.opened;
+			openingSum = d.opening;
+		}
 	}
 
 
@@ -36,12 +38,12 @@
 
 		<div style="display:flex;flex-direction: column;">
 			<label for="datStart">Début</label>
-			<input id="datStart" type="date" bind:value={startDate} />
+			<input id="datStart" type="date" bind:value={startDate} on:change={Calculate} />
 		</div>
 
 		<div style="display:flex;flex-direction: column;">
 			<label for="datEnd">Fin</label>
-			<input id="datEnd" type="date" bind:value={endDate} />
+			<input id="datEnd" type="date" bind:value={endDate} on:change={Calculate} />
 		</div>
 	</div>
 
