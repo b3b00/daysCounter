@@ -5,6 +5,7 @@ export function calculateDays(startDate, endDate, days, opened, opening) {
 
     let oped = 0;
     let oping = 0;
+    let cals = 0;
     let day = startDate;
     while (day <= endDate) {
 
@@ -13,6 +14,7 @@ export function calculateDays(startDate, endDate, days, opened, opening) {
         if (i < 0) {
             i = 6;
         }        
+        cals++;
         oped += opened[i] ? 1 : 0;
         oping += opening[i] ? 1 : 0;
 
@@ -21,7 +23,7 @@ export function calculateDays(startDate, endDate, days, opened, opening) {
 
     }
 
-    return {opened:oped, opening:oping};
+    return {opened:oped, opening:oping, calendar: cals};
 
 }
 

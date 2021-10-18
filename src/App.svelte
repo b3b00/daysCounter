@@ -16,12 +16,15 @@
 
 	let openingSum = 0;
 
+	let calendarSum = 0;
+
 	const Calculate = () => {
 		if (startDate && endDate) {
 			const d = calculateDays(new Date(startDate), new Date(endDate), days, opened, opening);
 			console.log(d);
 			openedSum = d.opened;
 			openingSum = d.opening;
+			calendarSum = d.calendar;
 		}
 	}
 
@@ -55,24 +58,24 @@
 	<div style="display:flex;flex-direction: row;">
 
 		<table>
-			<tr>
-				<td></td>
+			<tr style="">
+				<td style="border-bottom: 1px dotted black;"></td>
 				{#each days as day,index}
-				<td align="center">{day}</td>
+				<td align="center" style="border-bottom: 1px dotted black;border-left: 1px dotted black;">{day}</td>
 				{/each}
 			</tr>
 			<tr>
-				<td>Jours ouvrés</td>
+				<td style="text-align: center;">Jours ouvrés</td>
 				{#each days as day,index}
-				<td align="center">
+				<td align="center" style="border-left: 1px dotted black;">
 					<input type="checkbox" bind:checked={opened[index]} on:change={Calculate} />
 				</td>
 				{/each}
 			</tr>
 			<tr>
-				<td>Jours ouvrables</td>
+				<td style="text-align: center;">Jours ouvrables</td>
 				{#each days as day,index}
-				<td align="center">
+				<td align="center" style="border-left: 1px dotted black;">
 					<input type="checkbox" bind:checked={opening[index]} on:change={Calculate} />
 				</td>
 				{/each}
@@ -92,14 +95,18 @@
 
 <div>
 	<h1>Résultats</h1>
-	<div style="display:flex; flex-direction: row;">
-		<div style="display: flex;flex-direction: column;">
-			<p>Ouverts</p>
-			<p>{openedSum}</p>
-		</div>
-		<div style="display: flex;flex-direction: column;">
-			<p>Ouvrables</p>
-			<p>{openingSum}</p>
-		</div>
-	</div>
+
+	<table>
+		<tr>
+			<td style="text-align: center;">Calendaires</td>
+			<td style="text-align: center;">Ouvrés</td>
+			<td style="text-align: center;">Ouvrables</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">{calendarSum}</td>
+			<td style="text-align: center;">{openedSum}</td>
+			<td style="text-align: center;">{openingSum}</td>
+		</tr>
+
+	</table>
 </div>
