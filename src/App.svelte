@@ -1,6 +1,6 @@
 <script>
 
-	import { calculateDays } from './time.js'
+	import { add } from "date-fns";
 
 	export let startDate;
 
@@ -18,9 +18,37 @@
 
 	let calendarSum = 0;
 
+
+	export function calculateDays() {
+
+		let oped = 0;
+		let oping = 0;
+		let cals = 0;
+		let day = new Date(startDate)
+		let end = new Date(endDate)		
+		while (day <= end) {
+
+			let i = day.getDay();
+			i = i - 1;
+			if (i < 0) {
+				i = 6;
+			}
+			cals++;
+			oped += opened[i] ? 1 : 0;
+			oping += opening[i] ? 1 : 0;
+
+			day = add(day, { 'days': 1 });
+
+
+		}
+
+		return { opened: oped, opening: oping, calendar: cals };
+
+	}
+
 	const Calculate = () => {
 		if (startDate && endDate) {
-			const d = calculateDays(new Date(startDate), new Date(endDate), days, opened, opening);
+			const d = calculateDays();
 			console.log(d);
 			openedSum = d.opened;
 			openingSum = d.opening;

@@ -1,5 +1,4 @@
-console.log('Script loaded!')
-var CACHE_NAME = 'days-counter-8'
+var CACHE_NAME = 'days-counter-13'
 
 var urlsToCache  = [
   './',
