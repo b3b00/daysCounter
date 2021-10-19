@@ -48,8 +48,7 @@
 
 	const Calculate = () => {
 		if (startDate && endDate) {
-			const d = calculateDays();
-			console.log(d);
+			const d = calculateDays();			
 			openedSum = d.opened;
 			openingSum = d.opening;
 			calendarSum = d.calendar;
