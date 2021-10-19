@@ -2,15 +2,15 @@
 
 	import { add } from "date-fns";
 
-	export let startDate;
+	let startDate;
 
-	export let endDate;
+	let endDate;
 
-	export let days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+	let days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 
-	export let opening = [true, true, true, true, true, true, false];
+	let opening = [true, true, true, true, true, true, false];
 
-	export let opened = [true, true, true, true, true, false, false];
+	let opened = [true, true, true, true, true, false, false];
 
 	let openedSum = 0;
 
