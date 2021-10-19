@@ -11,6 +11,16 @@
 	<link rel='stylesheet' href='/build/bundle.css'>
 
 	<script defer src='/build/bundle.js'></script>
+	<link rel="manifest" href="/manifest.json" />
+
+	<script>
+	if (navigator.serviceWorker != null) {
+      navigator.serviceWorker.register('sw.js')
+      .then(function(registration) {
+        console.log('Registered events at scope: ', registration.scope);
+      });
+    }
+	</script>
 </head>
 
 <body>
