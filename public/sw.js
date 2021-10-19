@@ -1,11 +1,10 @@
 console.log('Script loaded!')
-var CACHE_NAME = 'days-counter-7'
+var CACHE_NAME = 'days-counter-8'
 
 var urlsToCache  = [
   './',
   "./index.html",
-  "./global.css",
-  "./build/bundle.css",
+  "./global.css",  
   "./build/bundle.js",
   "./image/icon512.png",
   "./image/icon256.png",
