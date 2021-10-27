@@ -59,15 +59,6 @@
 
 </script>
 
-<style>
-    .resultCol {
-        display: flex;
-        flex-direction: column;
-        margin-left: 15px;
-    }
-    </style>
-
-
 
 <div class="block">
 	<h1 class="counterHeader">Période</h1>

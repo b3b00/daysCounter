@@ -37,7 +37,7 @@ let opened = false;
 	<a class="logo" href="#/">My Tools</a>
 	
 	<input id="nav" type="checkbox">
-	<label for="nav"></label>
+	<label for="nav" id="burger"></label>
 	
 	<nav>
 	  <ul>

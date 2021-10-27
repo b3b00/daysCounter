@@ -36,6 +36,7 @@ header {
   header label:after {
 	content: "\2261";
 	font-size: 1.8em;
+	font-weight: bolder;
   }
   
   .logo {
@@ -79,7 +80,7 @@ header {
   @media only screen and (min-width: 700px) {
 	
 	header label { display: none; }
-	
+	#burger {display:none}
 	nav {
 	  width: auto;
 	  max-height: none;
