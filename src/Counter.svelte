@@ -82,35 +82,23 @@
 <div class="block">
 	<h1 class="counterHeader">Jours</h1>
 
-	<div style="display:flex;flex-direction: row;">
-
-		<table>
-			<tr style="">
-				<td style="border-bottom: 1px dotted black;"></td>
-				{#each days as day,index}
-				<td align="center" style="border-bottom: 1px dotted black;border-left: 1px dotted black;">{day}</td>
-				{/each}
-			</tr>
-			<tr>
-				<td style="text-align: center;">Jours ouvrés</td>
-				{#each days as day,index}
-				<td align="center" style="border-left: 1px dotted black;">
-					<input type="checkbox" bind:checked={opened[index]} on:change={Calculate} />
-				</td>
-				{/each}
-			</tr>
-			<tr>
-				<td style="text-align: center;">Jours ouvrables</td>
-				{#each days as day,index}
-				<td align="center" style="border-left: 1px dotted black;">
-					<input type="checkbox" bind:checked={opening[index]} on:change={Calculate} />
-				</td>
-				{/each}
-			</tr>
-
-		</table>
-
+<div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+	<div style="display: flex;flex-direction: column;">
+		<span>&nbsp;</span>
+		<span style="border-top: 1px dotted black;padding-top: 3px;">Jours ouvrés</span>
+		<span style="padding-top: 3px;">Jours ouvrables</span>
 	</div>
+	{#each days as day,index}
+	<div style="border-left: 1px dotted black;display: flex;flex-direction: column;text-align: center;align-content: center;padding-left: 5px;padding-right: 5px;">
+		<span>{day}</span>
+		<span style="border-top: 1px dotted black;padding-top: 3px;"><input type="checkbox" bind:checked={opened[index]} on:change={Calculate} /></span>
+		<span style="padding-top: 3px;"><input type="checkbox" bind:checked={opening[index]} on:change={Calculate} /></span>
+	</div>
+	{/each}
+
+</div>
+
+	
 </div>
 
 
