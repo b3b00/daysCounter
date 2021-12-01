@@ -9,11 +9,14 @@
 
 	let day = "L";
 
+	let number = 0;
+
 	let days = ["L", "M", "M", "J", "V", "S", "D"];
 
-	onMount(async () => {
-		// TODO : get day from date
+	onMount(() => {
+		
 		let i = date.getDay();
+		number = date.getDate();
 		i = i - 1;
 		if (i < 0) {
 			i = 6;
@@ -21,6 +24,7 @@
 		
 
 		day = days[i];
+		console.log("DAY",date,day);
 
 	});
 
@@ -30,14 +34,10 @@
 
 
 
-<div style="display:flex;flex-direction: row;">
 
+<tr>
+	<td>{day}</td>
+	<td>{number}</td>
+	<td>{type}</td>
+</tr>
 
-	<div style="display:flex;flex-direction: column;">		
-		<span>{day}</span>
-	</div>
-
-	<div style="display:flex;flex-direction: column;">
-		<span>TODO</span>
-	</div>
-</div>
