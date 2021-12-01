@@ -2,6 +2,7 @@
 	import Counter from './Counter.svelte'
 	import NotFound from './NotFound.svelte'
 	import Home from './Home.svelte'
+	import Calendar from './calendar/Calendar.svelte'
 	import Router from 'svelte-spa-router'
 	import { link } from 'svelte-spa-router'
 	
@@ -9,6 +10,7 @@
 
 	const routes = {
 		'/days/': Counter,
+		'/calendar/': Calendar,
 		'/': Home,
 		'*': NotFound
 	}
@@ -42,6 +44,7 @@ let opened = false;
 	<nav>
 	  <ul>
 		<li><a href="#/days">Days Counter</a></li>
+		<li><a href="#/calendar">Calendar</a></li>
 		<li><a href="#/other">Other</a></li>		
 	  </ul>
 	</nav> 
