@@ -2,7 +2,7 @@
 	import Counter from './Counter.svelte'
 	import NotFound from './NotFound.svelte'
 	import Home from './Home.svelte'
-	import Calendar from './calendar/Calendar.svelte'
+	import Year from './calendar/Year.svelte'
 	import Router from 'svelte-spa-router'
 	import { link } from 'svelte-spa-router'
 	
@@ -10,7 +10,7 @@
 
 	const routes = {
 		'/days/': Counter,
-		'/calendar/': Calendar,
+		'/calendar/': Year,
 		'/': Home,
 		'*': NotFound
 	}
