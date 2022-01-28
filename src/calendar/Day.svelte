@@ -2,12 +2,14 @@
 
 	import { add } from "date-fns";
 	import { onMount } from 'svelte';
-	import { leaves } from '../store.js';
-	
+	import { leaves, typeSetter } from '../store.js';
+	import { leaveTypes, typecolors } from './types.js';
+
 
 	export let date;
 
 	export let type;
+
 
 	let day = "L";
 
@@ -16,10 +18,6 @@
 	let color = "#fff"
 
 	let days = ["L", "M", "M", "J", "V", "S", "D"];
-
-	let availableTypes = ["", "CP", "CPA", "CP-1", "RTT", "RTT-1", "FRAC"];
-
-	let typecolors = ["#fff", "#2ccbc0", "#2ccbc0", "#2ccbc0", "#e0e612", "#e0e612", "#a50123"];
 
 	let selectedIds = [];
 
@@ -33,10 +31,10 @@
 			i = 6;
 		}
 
-
 		day = days[i];
-		console.log("DAY", date, day);
-
+		if (i == 5 || i == 6) {
+			color = "#cad0c4";
+		}
 	});
 
 	const rPad = (str, len, padding) => {
@@ -48,13 +46,18 @@
 	}
 
 	const toggleType = () => {
-		let index = availableTypes.indexOf(type);
-		index++;
-		if (index >= availableTypes.length) {
-			index = 0;
+		if (day != 'S' && day != 'D') {
+			let index = leaveTypes.indexOf($typeSetter);
+			type = $typeSetter;
+			color = typecolors[index];
 		}
-		type = availableTypes[index];
-		color = typecolors[index];
+	}
+
+	const unset = () => {
+		if (day != 'S' && day != 'D') {
+			type = "";
+			color = "#fff";
+		}
 	}
 
 	const update = (date, type) => {
@@ -76,7 +79,7 @@
 					Type: () => type
 				});
 			}
-		}		
+		}
 		$leaves = newLeaves;
 	}
 
@@ -88,9 +91,7 @@
 
 
 <tr>
-	
-	<td bgcolor="#cad0c4" on:click={toggleType}>{day}</td>
-	<td bgcolor="#878db0" on:click={toggleType}>{number}</td>
-	<td bgcolor="{color}" on:click={toggleType}>{@html rPad(type,5,'&nbsp;')}</td>
-	<!-- {* rPad(type,5,'&nbsp;') *} -->
+	<td bgcolor="#cad0c4" on:click={toggleType} on:contextmenu|preventDefault={unset}>{day}</td>
+	<td bgcolor="#878db0" on:click={toggleType} on:contextmenu|preventDefault={unset}>{number}</td>
+	<td bgcolor="{color}" on:click={toggleType} on:contextmenu|preventDefault={unset}>{@html rPad(type,5,'&nbsp;')}</td>
 </tr>
