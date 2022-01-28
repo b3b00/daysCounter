@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 
 export const netStatus = writable(true);
 
+export const typeSetter = writable("");
 
 
 const createWritableStore = (key, startValue) => {

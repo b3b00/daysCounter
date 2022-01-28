@@ -1,4 +1,4 @@
-var CACHE_NAME = 'days-counter-20';
+var CACHE_NAME = 'days-counter-22';
 
 var urlsToCache  = [
   './',
