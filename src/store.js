@@ -4,6 +4,7 @@ export const netStatus = writable(true);
 
 export const typeSetter = writable("");
 
+export const bankHolidays = writable([]);
 
 const createWritableStore = (key, startValue) => {
     const { subscribe, set, update } = writable(startValue);

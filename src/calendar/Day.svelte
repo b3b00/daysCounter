@@ -1,10 +1,10 @@
 <script lang="ts">
 
-	import { add } from "date-fns";
+	import { add, format } from "date-fns";
 	import { onMount } from 'svelte';
-	import { leaves, typeSetter } from '../store.js';
+	import { leaves, typeSetter, bankHolidays } from '../store.js';
 	import { leaveTypes, typecolors } from './types.js';
-
+	import {getBankHolidays} from './bankHolidays.js';
 
 	export let date;
 
@@ -21,8 +21,10 @@
 
 	let selectedIds = [];
 
+	let isBankHoliday = false;
 
-	onMount(() => {
+
+	onMount(async () => {
 
 		let i = date.getDay();
 		number = date.getDate();
@@ -31,10 +33,23 @@
 			i = 6;
 		}
 
+		let year = date.getFullYear();
+		let holies = await getBankHolidays(year);
+
+		const key = format(date,'yyyy-MM-dd');
+
+		console.log("searching for " + key);//+"in",holies);
+
+		isBankHoliday = holies.includes(key);
+
 		day = days[i];
-		if (i == 5 || i == 6) {
-			color = "#cad0c4";
-		}
+		if (i == 5 || i == 6 || isBankHoliday) {
+			if (isBankHoliday) {
+				console.log(`found a bank holiday ! ${key}`);
+			}
+			color = "#cad0c4"; 
+		}	
+
 	});
 
 	const rPad = (str, len, padding) => {
@@ -46,7 +61,7 @@
 	}
 
 	const toggleType = () => {
-		if (day != 'S' && day != 'D') {
+		if (day != 'S' && day != 'D' && !isBankHoliday) {
 			let index = leaveTypes.indexOf($typeSetter);
 			type = $typeSetter;
 			color = typecolors[index];
@@ -54,7 +69,7 @@
 	}
 
 	const unset = () => {
-		if (day != 'S' && day != 'D') {
+		if (day != 'S' && day != 'D' && !isBankHoliday) {
 			type = "";
 			color = "#fff";
 		}

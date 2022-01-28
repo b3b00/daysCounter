@@ -9,8 +9,6 @@
 
 	export let Month = 3;
 
-	export let type = "";
-
 	let days = [];
 
 	let startDay = new Date();
@@ -44,6 +42,6 @@
 	<table width="100%">
 		<tr><td>{Month+1}</td><td colspan="2" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
 		{#each days as day,index}
-		<Day date={day} type="" setter="{type}"/>
+		<Day date={day} type=""/>
 		{/each}
 	</table>
