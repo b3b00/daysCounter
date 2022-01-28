@@ -37,9 +37,9 @@
 </script>
 
 	
-	<table>
-		<tr><td colspan="3" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
+	<table width="100%">
+		<tr><td>{Month+1}</td><td colspan="2" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
 		{#each days as day,index}
-		<Day date={day} type="..."/>
+		<Day date={day} type=""/>
 		{/each}
 	</table>
