@@ -38,15 +38,10 @@
 
 		const key = format(date,'yyyy-MM-dd');
 
-		console.log("searching for " + key);//+"in",holies);
-
 		isBankHoliday = holies.includes(key);
 
 		day = days[i];
 		if (i == 5 || i == 6 || isBankHoliday) {
-			if (isBankHoliday) {
-				console.log(`found a bank holiday ! ${key}`);
-			}
 			color = "#cad0c4"; 
 		}	
 

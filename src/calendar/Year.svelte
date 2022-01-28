@@ -16,7 +16,6 @@
 
 
 	onMount(async () => {
-		
 		let y = new Date().getFullYear();
 		Year =  new Date().getFullYear();
 		let holies = await getBankHolidays(Year);
@@ -24,12 +23,15 @@
 	});
 
 
+	const setYear = (delta) => {
+		return () => {
 
-
-	let monthTitle = "";
-
-	let type;
-
+			Year = Year + delta;
+			console.log("Year: " + Year);
+			monthes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+			tick();
+		}
+	}
 
 
 </script>
@@ -43,7 +45,7 @@
 
 <div>
 
-	<h1 style="text-align: center;">{Year}</h1>
+	<h1 style="text-align: center;"><span style="margin-right:25px" on:click={setYear(-1)}>&lt;</span>{Year}<span style="margin-left:25px" on:click={setYear(1)}>&gt;</span></h1>
 
 	<div align="center">
 		{#each leaveTypes as currentType, i}
@@ -61,7 +63,7 @@
 		<tr>
 			{#each monthes as month}
 			<td valign="top">
-				<Month Month={month} Year={Year} type={type} />
+				<Month Month={month} Year={Year}/>
 			</td>
 			{/each}
 
