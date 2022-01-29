@@ -48,7 +48,7 @@
 	<h1 style="text-align: center;"><span style="margin-right:25px" on:click={setYear(-1)}>&lt;</span>{Year}<span style="margin-left:25px" on:click={setYear(1)}>&gt;</span></h1>
 
 	<div align="center">
-		<Year year="{year}" bind:this={component}/>
+		<Year bind:year={year} bind:this={component}/>
 	</div>
 
 	
