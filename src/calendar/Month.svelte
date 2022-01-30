@@ -18,7 +18,7 @@
 
 
 	onMount(() => {
-
+		console.log("MONTH.onMount " + Year + "-" + Month);
 		var day = new Date(Year, Month, 1);
 		startDay = day;
 
