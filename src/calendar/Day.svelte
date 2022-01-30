@@ -57,9 +57,15 @@
 
 	const toggleType = () => {
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
+			if (type == $typeSetter) {
+				color = "#fff";
+				type= "";
+			}
+			else {
 			let index = leaveTypes.indexOf($typeSetter);
 			type = $typeSetter;
 			color = typecolors[index];
+			}
 		}
 	}
 
