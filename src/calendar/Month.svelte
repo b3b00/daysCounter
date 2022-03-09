@@ -35,6 +35,41 @@
 
 	});
 
+	 $:{
+		console.log("MONTH.reactive "+ Year + "-" + Month);
+		let day = new Date(Year, Month, 1);	
+		startDay = day;
+		let month = day.getMonth();
+		monthTitle = format(day, 'MMM', {locale: fr});
+		while (month == Month) {
+			days.push(day);
+			day = add(day, { 'days': 1 });			
+			month = day.getMonth();
+		}
+		days = days;
+	}
+
+	function getDays()  {
+		console.log(`getDays ${Year}-${Month}`);
+		days = [];
+		var day = new Date(Year, Month, 1);
+		startDay = day;
+
+		let month = day.getMonth();
+
+		monthTitle = format(day, 'MMM', {locale: fr});
+
+		while (month == Month) {
+			days = [...days, day];
+			day = add(day, { 'days': 1 });			
+			month = day.getMonth();
+		}
+		return days;
+		
+	}
+
+	$: days => getDays();
+
 
 </script>
 

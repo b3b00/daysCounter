@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { leaves, typeSetter, bankHolidays } from '../store.js';
 	import { leaveTypes, typecolors } from './types.js';
-	import {getBankHolidays} from './bankHolidays.js';
+	import { getBankHolidays } from './bankHolidays.js';
 
 	export let date;
 
@@ -36,16 +36,41 @@
 		let year = date.getFullYear();
 		let holies = await getBankHolidays(year);
 
-		const key = format(date,'yyyy-MM-dd');
+		const key = format(date, 'yyyy-MM-dd');
 
 		isBankHoliday = holies.includes(key);
 
 		day = days[i];
 		if (i == 5 || i == 6 || isBankHoliday) {
-			color = "#cad0c4"; 
-		}	
+			color = "#cad0c4";
+		}
 
 	});
+
+
+	$: {
+		console.log(`day.reactive ${date}`)
+		let i = date.getDay();
+		number = date.getDate();
+		i = i - 1;
+		if (i < 0) {
+			i = 6;
+		}
+
+		let year = date.getFullYear();
+		getBankHolidays(year).then(holies => {
+			const key = format(date, 'yyyy-MM-dd');
+
+			isBankHoliday = holies.includes(key);
+
+			day = days[i];
+			if (i == 5 || i == 6 || isBankHoliday) {
+				color = "#cad0c4";
+			}
+		});
+
+
+	}
 
 	const rPad = (str, len, padding) => {
 		let c = len - str.length;
@@ -59,12 +84,12 @@
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
 			if (type == $typeSetter) {
 				color = "#fff";
-				type= "";
+				type = "";
 			}
 			else {
-			let index = leaveTypes.indexOf($typeSetter);
-			type = $typeSetter;
-			color = typecolors[index];
+				let index = leaveTypes.indexOf($typeSetter);
+				type = $typeSetter;
+				color = typecolors[index];
 			}
 		}
 	}
