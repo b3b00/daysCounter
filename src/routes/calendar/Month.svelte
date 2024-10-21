@@ -15,30 +15,32 @@
 	let monthTitle = $state("");
 
 
-
-	onMount(() => {
-		console.log(`MONTH.onMount ${theYear}-${theMonth}`);
+	let updateMonth = () => {
 		var day = new Date(theYear, theMonth, 1);
 		startDay = day;
-		console.log(`MONTH : startDay ${day}`);
 
 		let month = day.getMonth();
-
-		console.log(`month is ${month}`);
 
 		monthTitle = format(day, 'MMM', {locale: fr});
 
 		while (month == theMonth) {
-			console.log(`adding day ${day}`);
 			days.push(day);
 			day = add(day, { 'days': 1 });
 			month = day.getMonth();
 		}
-		console.log("days for month are",days);
 		days = days;
-		console.log('/Month -----------------------------');
+	}
 
+
+	onMount(() => {
+		updateMonth();
 	});
+
+	// $effect(() => {
+	// 	let m = theMonth;
+	// 	let y = theYear;
+	// 	updateMonth();
+	// })
 
 
 </script>
@@ -48,7 +50,7 @@
 		<tbody>
 			<tr><td>{theMonth+1}</td><td colspan="2" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
 			{#each days as day,index}
-			<Day date={day} type=""/>
+				<Day date={day} type=""/>
 			{/each}
 		</tbody>
 	</table>

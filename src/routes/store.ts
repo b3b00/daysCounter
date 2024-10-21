@@ -1,11 +1,12 @@
 import { writable } from 'svelte/store';
+import type { Writable } from "svelte/store"
 import type { Leave } from './calendar/types';
 
 export const netStatus = writable(true);
 
 export const typeSetter = writable("");
 
-export const bankHolidays = writable([]);
+export const bankHolidays:Writable<string[]>  = writable([]);
 
 const createWritableStore = <T>(key:string, startValue:T) => {
     const { subscribe, set, update } = writable(startValue);
@@ -27,6 +28,6 @@ const createWritableStore = <T>(key:string, startValue:T) => {
     };
   }
   
-  export const leaves = createWritableStore<Leave[]>('leaves',[]);
+  export const leaves:Writable<Leave[]> = createWritableStore<Leave[]>('leaves',[]);
 
   

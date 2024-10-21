@@ -2,7 +2,7 @@
 
 
 	import { leaveTypes, typecolors } from './types';
-	import { onMount} from 'svelte';
+	import { onMount } from 'svelte';
 	import Month from "./Month.svelte";
 	import { typeSetter, bankHolidays } from '../store';
 	import {getBankHolidays} from './bankHolidays';
@@ -10,13 +10,23 @@
 
 	let year : number = $state(2024);
 
-	
+	let holidays : string[] = $state([]);
 
-	onMount(async () => {
-		let y = new Date().getFullYear();
+	onMount(async () => {		
+		$bankHolidays = await getBankHolidays(year);
+		console.log('setting holidays ',$bankHolidays);
 		year =  new Date().getFullYear();
-		let holies = await getBankHolidays(year);		
 	});
+
+	let moveForward = async () => {
+		$bankHolidays = await getBankHolidays(year+1);
+		year++;
+	}
+
+	let moveBackward = async () => {
+		$bankHolidays = await getBankHolidays(year-1);
+		year--;
+	}
 
 
 	let monthes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -33,9 +43,9 @@
 <div>
 
 	<h1 style="text-align: center;">
-		<span style="margin-right:25px;cursor: pointer;" on:click={() => {year--;}}>&lt;</span>
+		<span style="margin-right:25px;cursor: pointer;" on:click={moveBackward}>&lt;</span>
 		{year}
-		<span style="margin-left:25px;cursor: pointer;" on:click={() => {year++;}}>&gt;</span></h1>
+		<span style="margin-left:25px;cursor: pointer;" on:click={moveForward}>&gt;</span></h1>
 
 	<div style="text-align: center">
 		{#each leaveTypes as currentType, i}
