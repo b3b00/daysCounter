@@ -20,15 +20,15 @@
 		startDay = day;
 
 		let month = day.getMonth();
-
+		let tempDays = [];
 		monthTitle = format(day, 'MMM', {locale: fr});
 
 		while (month == theMonth) {
-			days.push(day);
+			tempDays.push(day);
 			day = add(day, { 'days': 1 });
 			month = day.getMonth();
 		}
-		days = days;
+		days = tempDays;
 	}
 
 

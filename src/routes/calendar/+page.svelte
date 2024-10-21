@@ -4,29 +4,31 @@
 	import { leaveTypes, typecolors } from './types';
 	import { onMount } from 'svelte';
 	import Month from "./Month.svelte";
-	import { typeSetter, bankHolidays } from '../store';
+	import { typeSetter, bankHolidays, leaves } from '../store';
 	import {getBankHolidays} from './bankHolidays';
 
+	leaves.useLocalStorage();
 
 	let year : number = $state(2024);
 
 	let holidays : string[] = $state([]);
 
 	onMount(async () => {		
-		$bankHolidays = await getBankHolidays(year);		
 		year =  new Date().getFullYear();
 	});
 
 	let moveForward = async () => {
-		$bankHolidays = await getBankHolidays(year+1);
 		year++;
 	}
 
 	let moveBackward = async () => {
-		$bankHolidays = await getBankHolidays(year-1);
 		year--;
 	}
 
+
+	$effect(() => {
+		let y = year;
+	})
 
 	let monthes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 

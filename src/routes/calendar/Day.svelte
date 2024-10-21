@@ -2,7 +2,7 @@
 
 	import { add, format } from "date-fns";
 	import { onMount  } from 'svelte';
-	import { leaves, typeSetter, bankHolidays } from '../store.js';
+	import { leaves, typeSetter, bankHolidays, UnsetLeave as unsetLeave, SetLeave as setLeave } from '../store.js';
 	import { leaveTypes, typecolors } from './types.js';
 	import { getBankHolidays } from "./bankHolidays.js";	
 
@@ -21,10 +21,14 @@
 	let isBankHoliday = $state(false);
 
 	let getBH = async () => {
-		if (!$bankHolidays || $bankHolidays.length == 0) {
-			$bankHolidays = await getBankHolidays(theDate.getFullYear());
+		let year = theDate.getFullYear();
+		if (!$bankHolidays || !$bankHolidays[year+'']) {
+			let holidays = await getBankHolidays(year);
+			let v:{[year:number]:string[]} = $bankHolidays || {};
+			v[year] = holidays;
+			bankHolidays.set(v);
 		}
-		return $bankHolidays;
+		return $bankHolidays[year];
 	}
 
 
@@ -48,6 +52,10 @@
 			if (i == 5 || i == 6 || isBankHoliday) {
 				color = "#cad0c4"; 
 			}
+			else {
+				// TODO 
+				color = "#fff";
+			}
 		});
 	}
 
@@ -56,7 +64,6 @@
 	} );
 
 	$effect(() => {
-		console.log(`update day ${theDate}`);
 		let d = theDate;
 		let t = theType;
 		display();
@@ -71,23 +78,28 @@
 	}
 
 	const toggleType = () => {
+		const leaveDay = format(theDate,'yyyy-MM-dd');
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
 			if (theType == $typeSetter) {
 				color = "#fff";
 				theType= "";
+				unsetLeave(leaveDay);
 			}
 			else {
-			let index = leaveTypes.indexOf($typeSetter);
-			theType = $typeSetter;
-			color = typecolors[index];
+				let index = leaveTypes.indexOf($typeSetter);
+				theType = $typeSetter;
+				color = typecolors[index];
+				setLeave(leaveDay,theType);
 			}
 		}
 	}
 
 	const unset = () => {
+		const leaveDay = format(theDate,'yyyy-MM-dd');
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
 			theType = "";
 			color = "#fff";
+			unsetLeave(leaveDay);
 		}
 	}
 

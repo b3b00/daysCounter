@@ -20,12 +20,10 @@
 
 
 	export function calculateDays() : {calendar:number;opening:number;opened:number} {
-		console.log(`enter calculateDays() ${startDate} -> ${endDate}`);
 		let oped = 0;
 		let oping = 0;
 		let cals = 0;
 		if (startDate && endDate)  {
-			console.log('start real calculation');
 			let day = new Date(startDate)
 			let end = new Date(endDate)
 			while (day <= end) {
@@ -50,11 +48,8 @@
 	}
 
 	const Calculate = () => {
-		console.log(`calculate days for ${startDate} to ${endDate}`)
 		if (startDate && endDate) {
-			console.log('call calculateDays()')
 			const d = calculateDays();
-			console.log("days are ",d);
 			openedSum = d.opened;
 			openingSum = d.opening;
 			calendarSum = d.calendar;
