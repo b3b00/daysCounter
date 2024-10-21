@@ -27,7 +27,6 @@ const createWritableStore = <T>(key:string, startValue:T) => {
       }
 
       subscribe(current => {
-        console.log(`saving ${key} : ${current}`);
         localStorage.setItem(key, JSON.stringify(current));
       });
     }

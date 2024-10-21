@@ -53,8 +53,15 @@
 				color = "#cad0c4"; 
 			}
 			else {
-				// TODO 
-				color = "#fff";
+				let i = $leaves.findIndex(x => x.date == key);
+				if (i > 0) {
+					let leave = $leaves[i];
+					color = getColor(leave.type);
+					theType = leave.type;
+				}	
+				else {
+					color = "#fff";
+				}
 			}
 		});
 	}
@@ -77,6 +84,12 @@
 		return str;
 	}
 
+	const getColor = (type: string ) => {
+		let index = leaveTypes.indexOf(type);
+		let col = typecolors[index];
+		return col;
+	}
+
 	const toggleType = () => {
 		const leaveDay = format(theDate,'yyyy-MM-dd');
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
@@ -86,9 +99,8 @@
 				unsetLeave(leaveDay);
 			}
 			else {
-				let index = leaveTypes.indexOf($typeSetter);
 				theType = $typeSetter;
-				color = typecolors[index];
+				color = getColor($typeSetter);
 				setLeave(leaveDay,theType);
 			}
 		}
