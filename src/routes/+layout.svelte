@@ -22,7 +22,7 @@ let opened = false;
 
 <header>
   
-	<a class="logo" href="#/">My Tools</a>
+	<a class="logo" href="/">My Tools</a>
 	
 	<input id="nav" type="checkbox">
 	<label for="nav" id="burger"></label>
