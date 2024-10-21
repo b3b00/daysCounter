@@ -1,11 +1,11 @@
 <script lang="ts">
 
 
-	import { leaveTypes, typecolors } from './types.js';
+	import { leaveTypes, typecolors } from './types';
 	import { onMount} from 'svelte';
 	import Month from "./Month.svelte";
-	import { typeSetter, bankHolidays } from '../store.js';
-	import {getBankHolidays} from './bankHolidays.js';
+	import { typeSetter, bankHolidays } from '../store';
+	import {getBankHolidays} from './bankHolidays';
 
 
 	export let year = 2022;
@@ -34,7 +34,7 @@
 
 	<h1 style="text-align: center;"><span style="margin-right:25px;cursor: pointer;" on:click={() => {year--;}}>&lt;</span>{year}<span style="margin-left:25px;cursor: pointer;" on:click={() => {year++;}}>&gt;</span></h1>
 
-	<div align="center">
+	<div style="text-align: center">
 		{#each leaveTypes as currentType, i}
 		<!-- {#if i != 0} -->
 		<label style="background-color:{typecolors[i]};margin:25px" class="typeStyle">

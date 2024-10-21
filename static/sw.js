@@ -3,8 +3,7 @@ var CACHE_NAME = 'days-counter-27';
 var urlsToCache  = [
   './',
   "./index.html",
-  "./global.css",  
-  "./build/bundle.js",
+  "./global.css",
   "./image/icon512.png",
   "./image/icon256.png",
   "./image/icon128.png",

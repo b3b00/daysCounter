@@ -5,11 +5,11 @@
 	import { onMount } from 'svelte';	
 	import { fr } from 'date-fns/locale';
 
-	export let Year = 2021;
+	export let Year = 2024;
 
 	export let Month = 3;
 
-	let days = [];
+	let days:Date[] = [];
 
 	let startDay = new Date();
 

@@ -8,7 +8,7 @@
 
 	export let date;
 
-	export let type;
+	export let type: string;
 
 
 	let day = "L";
@@ -47,7 +47,7 @@
 
 	});
 
-	const rPad = (str, len, padding) => {
+	const rPad = (str:string, len:number, padding:string):string => {
 		let c = len - str.length;
 		for (let i = 0; i < c; i++) {
 			str = str + padding;
@@ -76,23 +76,23 @@
 		}
 	}
 
-	const update = (date, type) => {
+	const update = (date:Date, type:string) => {
 		let newLeaves = $leaves;
-		let alreadyHere = newLeaves.some(x => x.Date() == date);
+		let alreadyHere = newLeaves.some(x => x.Date == date);
 		if (type === '' && alreadyHere) {
-			newLeaves = newLeaves.filter(x => x.Date() != date);
+			newLeaves = newLeaves.filter(x => x.Date != date);
 		} else {
 			if (alreadyHere) {
 				newLeaves = newLeaves.map(x => {
-					if (x.Date() == date) {
-						x.Type(type);
+					if (x.Date == date) {
+						x.Type = type;
 					}
 					return x;
 				});
 			} else {
 				newLeaves.push({
-					Date: () => date,
-					Type: () => type
+					Date: date,
+					Type: type
 				});
 			}
 		}
@@ -107,7 +107,7 @@
 
 
 <tr>
-	<td bgcolor="#cad0c4" on:click={toggleType} on:contextmenu|preventDefault={unset}>{day}</td>
-	<td bgcolor="#878db0" on:click={toggleType} on:contextmenu|preventDefault={unset}>{number}</td>
-	<td bgcolor="{color}" on:click={toggleType} on:contextmenu|preventDefault={unset}>{@html rPad(type,5,'&nbsp;')}</td>
+	<td style="background-color:#cad0c4"  on:click={toggleType} on:contextmenu|preventDefault={unset}>{day}</td>
+	<td style="background-color:#878db0" on:click={toggleType} on:contextmenu|preventDefault={unset}>{number}</td>
+	<td style="background-color:{color}" on:click={toggleType} on:contextmenu|preventDefault={unset}>{@html rPad(type,5,'&nbsp;')}</td>
 </tr>
