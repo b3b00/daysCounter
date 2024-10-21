@@ -8,7 +8,7 @@
 	import {getBankHolidays} from './bankHolidays';
 
 
-	export let year = 2022;
+	let year : number = $state(2024);
 
 	
 
@@ -32,7 +32,10 @@
 
 <div>
 
-	<h1 style="text-align: center;"><span style="margin-right:25px;cursor: pointer;" on:click={() => {year--;}}>&lt;</span>{year}<span style="margin-left:25px;cursor: pointer;" on:click={() => {year++;}}>&gt;</span></h1>
+	<h1 style="text-align: center;">
+		<span style="margin-right:25px;cursor: pointer;" on:click={() => {year--;}}>&lt;</span>
+		{year}
+		<span style="margin-left:25px;cursor: pointer;" on:click={() => {year++;}}>&gt;</span></h1>
 
 	<div style="text-align: center">
 		{#each leaveTypes as currentType, i}
@@ -50,7 +53,7 @@
 			<tr>
 				{#each monthes as month}
 				<td valign="top">
-					<Month Month={month} Year={year}/>
+					<Month month={month} year={year}/>
 				</td>
 				{/each}
 			</tr>

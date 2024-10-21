@@ -5,33 +5,38 @@
 	import { onMount } from 'svelte';	
 	import { fr } from 'date-fns/locale';
 
-	export let Year = 2024;
 
-	export let Month = 3;
+	let { year: theYear, month: theMonth } = $props<{year:number, month:number }>();
 
-	let days:Date[] = [];
+	let days:Date[] = $state([]);
 
-	let startDay = new Date();
+	let startDay = $state(new Date());
 
-	let monthTitle = "";
+	let monthTitle = $state("");
 
 
 
 	onMount(() => {
-		console.log("MONTH.onMount " + Year + "-" + Month);
-		var day = new Date(Year, Month, 1);
+		console.log(`MONTH.onMount ${theYear}-${theMonth}`);
+		var day = new Date(theYear, theMonth, 1);
 		startDay = day;
+		console.log(`MONTH : startDay ${day}`);
 
 		let month = day.getMonth();
 
+		console.log(`month is ${month}`);
+
 		monthTitle = format(day, 'MMM', {locale: fr});
 
-		while (month == Month) {
+		while (month == theMonth) {
+			console.log(`adding day ${day}`);
 			days.push(day);
-			day = add(day, { 'days': 1 });			
+			day = add(day, { 'days': 1 });
 			month = day.getMonth();
 		}
+		console.log("days for month are",days);
 		days = days;
+		console.log('/Month -----------------------------');
 
 	});
 
@@ -41,7 +46,7 @@
 	
 	<table width="100%">
 		<tbody>
-			<tr><td>{Month+1}</td><td colspan="2" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
+			<tr><td>{theMonth+1}</td><td colspan="2" style="text-align: center;font-size: large;font-weight: bold;">{monthTitle}</td></tr>
 			{#each days as day,index}
 			<Day date={day} type=""/>
 			{/each}

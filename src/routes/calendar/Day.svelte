@@ -6,37 +6,36 @@
 	import { leaveTypes, typecolors } from './types.js';
 	import {getBankHolidays} from './bankHolidays.js';
 
-	export let date;
 
-	export let type: string;
+	let { date: theDate, type: theType } = $props<{date:Date, type:string }>();
 
 
-	let day = "L";
+	let day = $state("L");
 
-	let number = 0;
+	let number = $state(0);
 
-	let color = "#fff"
+	let color = $state("#fff")
 
 	let days = ["L", "M", "M", "J", "V", "S", "D"];
 
-	let selectedIds = [];
+	let selectedIds = $state([]);
 
-	let isBankHoliday = false;
+	let isBankHoliday = $state(false);
 
 
 	onMount(async () => {
 
-		let i = date.getDay();
-		number = date.getDate();
+		let i = theDate.getDay();
+		number = theDate.getDate();
 		i = i - 1;
 		if (i < 0) {
 			i = 6;
 		}
 
-		let year = date.getFullYear();
+		let year = theDate.getFullYear();
 		let holies = await getBankHolidays(year);
 
-		const key = format(date,'yyyy-MM-dd');
+		const key = format(theDate,'yyyy-MM-dd');
 
 		isBankHoliday = holies.includes(key);
 
@@ -57,13 +56,13 @@
 
 	const toggleType = () => {
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
-			if (type == $typeSetter) {
+			if (theType == $typeSetter) {
 				color = "#fff";
-				type= "";
+				theType= "";
 			}
 			else {
 			let index = leaveTypes.indexOf($typeSetter);
-			type = $typeSetter;
+			theType = $typeSetter;
 			color = typecolors[index];
 			}
 		}
@@ -71,7 +70,7 @@
 
 	const unset = () => {
 		if (day != 'S' && day != 'D' && !isBankHoliday) {
-			type = "";
+			theType = "";
 			color = "#fff";
 		}
 	}
@@ -109,5 +108,5 @@
 <tr>
 	<td style="background-color:#cad0c4"  on:click={toggleType} on:contextmenu|preventDefault={unset}>{day}</td>
 	<td style="background-color:#878db0" on:click={toggleType} on:contextmenu|preventDefault={unset}>{number}</td>
-	<td style="background-color:{color}" on:click={toggleType} on:contextmenu|preventDefault={unset}>{@html rPad(type,5,'&nbsp;')}</td>
+	<td style="background-color:{color}" on:click={toggleType} on:contextmenu|preventDefault={unset}>{@html rPad(theType,5,'&nbsp;')}</td>
 </tr>
