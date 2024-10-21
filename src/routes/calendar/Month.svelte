@@ -36,11 +36,11 @@
 		updateMonth();
 	});
 
-	// $effect(() => {
-	// 	let m = theMonth;
-	// 	let y = theYear;
-	// 	updateMonth();
-	// })
+	$effect(() => {
+		let m = theMonth;
+		let y = theYear;
+		updateMonth();
+	})
 
 
 </script>

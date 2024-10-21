@@ -13,8 +13,7 @@
 	let holidays : string[] = $state([]);
 
 	onMount(async () => {		
-		$bankHolidays = await getBankHolidays(year);
-		console.log('setting holidays ',$bankHolidays);
+		$bankHolidays = await getBankHolidays(year);		
 		year =  new Date().getFullYear();
 	});
 

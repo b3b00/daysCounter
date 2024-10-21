@@ -4,6 +4,7 @@
 	import { onMount  } from 'svelte';
 	import { leaves, typeSetter, bankHolidays } from '../store.js';
 	import { leaveTypes, typecolors } from './types.js';
+	import { getBankHolidays } from "./bankHolidays.js";	
 
 
 	let { date: theDate, type: theType } = $props<{date:Date, type:string }>();
@@ -19,6 +20,13 @@
 
 	let isBankHoliday = $state(false);
 
+	let getBH = async () => {
+		if (!$bankHolidays || $bankHolidays.length == 0) {
+			$bankHolidays = await getBankHolidays(theDate.getFullYear());
+		}
+		return $bankHolidays;
+	}
+
 
 	let display = () => {		
 		let i = theDate.getDay();
@@ -30,35 +38,29 @@
 
 		let year = theDate.getFullYear();
 		isBankHoliday = false;
-		if ($bankHolidays) {
+		
+		getBH().then(hs => {
 			const key = format(theDate,'yyyy-MM-dd');
-			console.log(`testing ${key} against holidays`,$bankHolidays);
-			isBankHoliday = $bankHolidays.includes(key);
-		}
-		day = days[i];
-		console.log(`${theDate} [${i}] => day:>${day}< color:>${color}< number:>${number}<`);
-		if (i == 5 || i == 6 || isBankHoliday) {
-			color = "#cad0c4"; 
-		}
+			if (hs) {
+				isBankHoliday = hs.includes(key);
+			}
+			day = days[i];
+			if (i == 5 || i == 6 || isBankHoliday) {
+				color = "#cad0c4"; 
+			}
+		});
 	}
 
 	onMount(() => {		
-		if (theDate.getDay() == 0) {
-			console.log('DAY ONE '+theDate.getMonth());
-			if (bankHolidays) {
-				console.log('holidays DAY.ONMOUNT() are ',$bankHolidays);
-			}
-		}
 		display();
 	} );
 
-	// $effect(() => {
-	// 	let d = theDate;
-	// 	let t = theType;
-	// 	console.log(`DAY : something has changed ${theDate}, ${theType}`,getHolidays ? getHolidays() : []);
-		
-	// 	//display();
-	// })
+	$effect(() => {
+		console.log(`update day ${theDate}`);
+		let d = theDate;
+		let t = theType;
+		display();
+	})
 
 	const rPad = (str:string, len:number, padding:string):string => {
 		let c = len - str.length;

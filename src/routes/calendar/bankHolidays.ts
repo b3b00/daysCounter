@@ -5,6 +5,7 @@ export const getBankHolidays = async (year:number):Promise<string[]> => {
 		let res = await fetch(url);
 		let json = await res.json();
 		let holidays = Object.keys(json);
+		bankHolidays.set(holidays);
 		// $bankHolidays = holidays;
         return holidays;
 }
