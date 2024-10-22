@@ -54,8 +54,9 @@
 				theType = "";
 			}
 			else {
+
 				let i = $leaves.findIndex(x => x.date == key);
-				if (i > 0) {
+				if (i >= 0) {
 					let leave = $leaves[i];
 					color = getColor(leave.type);
 					theType = leave.type;
