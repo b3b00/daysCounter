@@ -1,45 +1,52 @@
 <script lang="ts">
 
-	import { add } from "date-fns";
+	import { onMount } from 'svelte';
+	import { add, format } from "date-fns";
 
-	let startDate;
+	let startDate : string|undefined = $state(undefined);
 
-	let endDate;
+	let endDate : string|undefined = $state(undefined);
 
 	let days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 
-	let opening = [true, true, true, true, true, true, false];
+	let opening : boolean[] = $state([true, true, true, true, true, true, false]);
 
-	let opened = [true, true, true, true, true, false, false];
+	let opened : boolean[] = $state([true, true, true, true, true, false, false]);
 
-	let openedSum = 0;
+	let openedSum : number  = $state(0);
 
-	let openingSum = 0;
+	let openingSum : number  = $state(0);
 
-	let calendarSum = 0;
+	let calendarSum : number  = $state(0);
 
 
-	export function calculateDays() {
+	onMount(() => {
+		let x = format(new Date(),'yyyy-MM-dd');
+		startDate = x
+	})
 
+	export function calculateDays() : {calendar:number;opening:number;opened:number} {
 		let oped = 0;
 		let oping = 0;
 		let cals = 0;
-		let day = new Date(startDate)
-		let end = new Date(endDate)		
-		while (day <= end) {
+		if (startDate && endDate)  {
+			let day = new Date(startDate)
+			let end = new Date(endDate)
+			while (day <= end) {
 
-			let i = day.getDay();
-			i = i - 1;
-			if (i < 0) {
-				i = 6;
+				let i = day.getDay();
+				i = i - 1;
+				if (i < 0) {
+					i = 6;
+				}
+				cals++;
+				oped += opened[i] ? 1 : 0;
+				oping += opening[i] ? 1 : 0;
+
+				day = add(day, { 'days': 1 });
+
+
 			}
-			cals++;
-			oped += opened[i] ? 1 : 0;
-			oping += opening[i] ? 1 : 0;
-
-			day = add(day, { 'days': 1 });
-
-
 		}
 
 		return { opened: oped, opening: oping, calendar: cals };
@@ -48,14 +55,12 @@
 
 	const Calculate = () => {
 		if (startDate && endDate) {
-			const d = calculateDays();			
+			const d = calculateDays();
 			openedSum = d.opened;
 			openingSum = d.opening;
 			calendarSum = d.calendar;
-		}
+		};
 	}
-
-
 
 </script>
 
