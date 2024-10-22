@@ -61,6 +61,7 @@
 				}	
 				else {
 					color = "#fff";
+					theType = "";
 				}
 			}
 		});
