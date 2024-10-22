@@ -1,6 +1,7 @@
 <script lang="ts">
 
-	import { add } from "date-fns";
+	import { onMount } from 'svelte';
+	import { add, format } from "date-fns";
 
 	let startDate : string|undefined = $state(undefined);
 
@@ -18,6 +19,11 @@
 
 	let calendarSum : number  = $state(0);
 
+
+	onMount(() => {
+		let x = format(new Date(),'yyyy-MM-dd');
+		startDate = x
+	})
 
 	export function calculateDays() : {calendar:number;opening:number;opened:number} {
 		let oped = 0;
@@ -55,8 +61,6 @@
 			calendarSum = d.calendar;
 		};
 	}
-
-
 
 </script>
 
