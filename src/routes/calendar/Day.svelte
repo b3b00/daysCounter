@@ -21,12 +21,16 @@
 	let isBankHoliday = $state(false);
 
 	let getBH = async () => {
-		let year = theDate.getFullYear();
-		if (!$bankHolidays || !$bankHolidays[year+'']) {
-			let holidays = await getBankHolidays(year);
-			let v:{[year:number]:string[]} = $bankHolidays || {};
-			v[year] = holidays;
-			bankHolidays.set(v);
+		let year = theDate.getFullYear();	
+		let banks = $bankHolidays
+		let y = parseInt(year);
+		console.log(`looking for naking days @${y} in `, banks, banks[y], !banks, !banks[y]);
+		if (!banks || !banks[y]) {
+			console.log(`call banks for ${year} from ${format(theDate,'yyyy-MM-dd')}`,banks)
+			let holidays = await getBankHolidays(year);			
+			banks[y] = holidays;
+			console.log
+			$bankHolidays = banks;
 		}
 		return $bankHolidays[year];
 	}
