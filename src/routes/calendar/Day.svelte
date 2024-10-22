@@ -51,6 +51,7 @@
 			day = days[i];
 			if (i == 5 || i == 6 || isBankHoliday) {
 				color = "#cad0c4"; 
+				theType = "";
 			}
 			else {
 				let i = $leaves.findIndex(x => x.date == key);
@@ -104,6 +105,9 @@
 				color = getColor($typeSetter);
 				setLeave(leaveDay,theType);
 			}
+		}
+		else {
+			theType = "";
 		}
 	}
 
